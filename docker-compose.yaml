@@ -1,31 +1,24 @@
-version: "3.7"
+version: '3.7'
 services:
-  nginx:
+  mysql:
+    image: 
+    ports:
+      - target: 3306
+        published: 3306
+        protocol: tcp
+  flask-app: 
+    build: nginx:latest
+    ports:
+      - target: 5000
+        published: 5000
+        protocol: tcp
+  nginx: 
     image: nginx:latest
+    ports:
+      - target: 80
+        published: 80
+        protocol: tcp
     volumes:
-      type: bind
-      source: ./nginx/nginx.conf
-      target: /etc/nginx/nginx.conf
-    ports:
-    - target: 80
-    - published: 80
-  app-frontend:
-    image: mariam_frontend:latest
-    ports:
-    - target: 5000
-    - published: 5000
-  app-letters:
-    image: mariam_letters:latest
-    ports:
-    - target: 5001
-    - published: 5001
-  app-numbers:
-    image: mariam_numbers:latest
-    ports:
-    - target: 5002
-    - published: 5002
-  app-prizes:
-    image: mariam_prizes:latest
-    ports:
-    - target: 5003
-    - published: 5003
+      - type: bind
+        source: ./nginx.conf
+        target: /etc/nginx.conf
