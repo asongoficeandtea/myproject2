@@ -2,3 +2,5 @@ Flask
 requests
 flask_sqlalchemy
 pymysql
+pytest
+pytest-cov
