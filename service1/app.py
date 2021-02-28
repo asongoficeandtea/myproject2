@@ -16,13 +16,13 @@ class Win(db.Model):
     prize = db.Column(db.String(50))
 
 
-
 @app.route('/', methods=["GET"])
 @app.route('/index', methods=["GET"])
 def index():
-    names = requests.get("http://35.247.11.109:5001/names")
-    fruits = requests.get("http://35.247.11.109:5002/fruits")
-    response = requests.post("http://35.247.11.109:5003/prize", data=names.text)
+    names = requests.get("http://35.233.144.42:5001/names")
+    fruits = requests.get("http://35.233.144.42:5002/fruits")
+    response = requests.post(
+        "http://35.233.144.42:5003/prize", data=names.text)
     win = Win(name=names.text, fruit=fruits.text, prize=response.text)
     db.session.add(win)
     db.session.commit()
@@ -31,4 +31,3 @@ def index():
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
-
