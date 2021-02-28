@@ -12,11 +12,7 @@ perfumes = ["Roberto Cavalli Oud al-Qasr", "Black Phantom by Kilian", "Versace B
 
 @app.route('/prize', methods=["POST"])
 def prize():
-    full_info = request.get_json()
-    names = full_info["names"]
-    fruits = full_info["fruits"]
-
-    account = names + fruits
+    account = request.data.decode('utf-8')
     if account[0].isupper():
         prize = random.choice(perfumes)
     elif account[0].islower():

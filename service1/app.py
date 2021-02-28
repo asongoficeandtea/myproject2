@@ -5,6 +5,7 @@ import random
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://alimatea7:root@localhost/flaskdb'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
 
 
@@ -15,23 +16,22 @@ class Win(db.Model):
     prize = db.Column(db.String(50))
 
 
-db.create_all()
-
 
 @app.route('/', methods=["GET"])
 @app.route('/index', methods=["GET"])
 def index():
     names = requests.get("http://localhost:5001/names")
     fruits = requests.get("http://localhost:5002/fruits")
-    response = requests.post("http://localhost:5003/prize",
-                             json={"names": names.text, "fruits": fruits.text})
+    account = names.text + fruits.text
+    response = requests.post("http://localhost:5003/prize", data=account)
 
-    user = names.text + fruits.text
+    names1 = names.text
+    fruits1 = fruits.text
     prize = response.text
     win = Win(name=names.text, fruit=fruits.text, prize=prize)
     db.session.add(win)
     db.session.commit()
-    return render_template('index.html', user=user, prize=prize)
+    return render_template('index.html', names1=names, fruits1=fruits,  prize=prize)
 
 
 if __name__ == "__main__":

@@ -8,8 +8,7 @@ app = Flask(__name__)
 def names():
     names = ["leila", "Amina", "maya",
              "Waris", "khadra", "Fatima", "shamhan", "Mariam", "mulki"]
-    rand_name = random.choice(names)
-    return Response(rand_name, mimetype='text/plain')
+    return Response(random.choice(names), mimetype='text/plain')
 
 
 if __name__ == "__main__":
