@@ -23,15 +23,15 @@ def index():
     names = requests.get("http://localhost:5001/names")
     fruits = requests.get("http://localhost:5002/fruits")
     response = requests.post("http://localhost:5003/prize", data=names.text)
-
-    names1 = names.text
-    fruits1 = fruits.text
+    correct_name = names.text
+    correct_fruit = fruits.text
     prize = response.text
     win = Win(name=names.text, fruit=fruits.text, prize=prize)
     db.session.add(win)
     db.session.commit()
-    return render_template('index.html', names1=names, fruits1=fruits,  prize=prize)
+    return render_template('index.html', correct_name=names, correct_fruit=fruits,  prize=prize)
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=5000)
+    app.run(host='0.0.0.0', port=5000, debug=True)
+
