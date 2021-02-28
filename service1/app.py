@@ -22,8 +22,7 @@ class Win(db.Model):
 def index():
     names = requests.get("http://localhost:5001/names")
     fruits = requests.get("http://localhost:5002/fruits")
-    account = names.text + fruits.text
-    response = requests.post("http://localhost:5003/prize", data=account)
+    response = requests.post("http://localhost:5003/prize", data=names.text)
 
     names1 = names.text
     fruits1 = fruits.text
