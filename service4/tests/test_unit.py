@@ -11,9 +11,9 @@ class TestBase(TestCase):
 
 class TestResponse(TestBase):
     def test_prize(self):
-        with patch("requests.post") as m:
-            m.return_value.text = "Mariam"
+        response = self.client.post(url_for('prize'), data="Mariam")
+        self.assertIn(b'Versace Bright Crystal', response.data)
 
-            response = self.client.post(url_for('prize'), data='Mariam')
-            self.assertEqual(response.status_code, 200)
-
+    def test_another(self):
+        response = self.client.post(url_for('prize'), data="mulki")
+        self.assertIn(b'Porsche 911', response.data)
