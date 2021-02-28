@@ -1,17 +1,27 @@
 version: '3.7'
 services:
-  mysql:
-    image: 
+  service-1:
+    image: app-frontend:latest
     ports:
-      - target: 3306
-        published: 3306
-        protocol: tcp
-  flask-app: 
-    build: nginx:latest
+    - target: 5000
+      protocol: tcp
+    depends_on:
+    - service-4
+  service-2:
+    image: app-names:latest
     ports:
-      - target: 5000
-        published: 5000
-        protocol: tcp
+    - target: 5001
+      protocol: tcp
+  service-3:
+    image: app-fruits:latest
+    ports:
+    - target: 5002
+      protocol: tcp
+  service-4:
+    image: app-prizes:latest
+    ports:
+    - target: 5003
+      protocol: tcp
   nginx: 
     image: nginx:latest
     ports:
@@ -20,5 +30,6 @@ services:
         protocol: tcp
     volumes:
       - type: bind
-        source: ./nginx.conf
-        target: /etc/nginx.conf
+        source: ./nginx/nginx.conf
+        target: /etc/nginx/nginx.conf
+
