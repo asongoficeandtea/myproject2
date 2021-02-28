@@ -4,8 +4,8 @@ import requests
 import random
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://alimatea7:root@35.233.144.42/flaskdb'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@35.203.177.146/flaskdb'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 
@@ -20,16 +20,13 @@ class Win(db.Model):
 @app.route('/', methods=["GET"])
 @app.route('/index', methods=["GET"])
 def index():
-    names = requests.get("http://app-names:5001/names")
-    fruits = requests.get("http://app-fruits:5002/fruits")
-    response = requests.post("http://app-prizes:5003/prize", data=names.text)
-    correct_name = names.text
-    correct_fruit = fruits.text
-    prize = response.text
-    win = Win(name=names.text, fruit=fruits.text, prize=prize)
+    names = requests.get("http://35.247.11.109:5001/names")
+    fruits = requests.get("http://35.247.11.109:5002/fruits")
+    response = requests.post("http://35.247.11.109:5003/prize", data=names.text)
+    win = Win(name=names.text, fruit=fruits.text, prize=response.text)
     db.session.add(win)
     db.session.commit()
-    return render_template('index.html', correct_name=names, correct_fruit=fruits,  prize=prize)
+    return render_template('index.html', names=names.text, fruits=fruits.text, prize=response.text)
 
 
 if __name__ == "__main__":

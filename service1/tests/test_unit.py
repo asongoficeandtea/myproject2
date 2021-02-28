@@ -6,7 +6,7 @@ from app import app, db, Win
 
 class TestBase(TestCase):
     def create_app(self):
-        app.config.update(SQLALCHEMY_DATABASE_URI='mysql+pymysql://alimatea7:root@35.233.144.42/testdb',
+        app.config.update(SQLALCHEMY_DATABASE_URI='mysql+pymysql://alimatea7:root@35.247.11.109/testdb',
                           SECRET_KEY='IT_IS_A_SECRET_KEY',
                           DEBUG=True
                           )

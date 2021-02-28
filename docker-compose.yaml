@@ -1,18 +1,32 @@
-version: '3.7'
+version: '3'
 services:
-  app-frontend:
-    image: app-frontend:latest
+  service-1:
+    container_name: app-frontend
+    image: nubimari/app-frontend:latest
+    build: ./service1
+    deploy: 
+      replicas: 3
     ports:
-    - 5000:5000
-  app-names:
-    image: app-names:latest
+    - "5000:5000"
+  service-2:
+    container_name: app-names
+    image: nubimari/app-names:latest
+    build: ./service2
+    deploy:
+      replicas: 3
     ports:
-    - 5001:5001
-  app-fruits:
-    image: app-fruits:latest
+    - "5001:5001"
+  service-3:
+    image: nubimari/app-fruits:latest
+    build: ./service3
+    deploy:
+      replicas: 3
     ports:
-    - 5002:5002
-  app-prizes:
-    image: app-prizes:latest
+    - "5002:5002"
+  service-4:
+    image: nubimari/app-prizes:latest
+    build: ./service4
+    deploy:
+      replicas: 3
     ports:
-    - 5003:5003
+    - "5003:5003"
