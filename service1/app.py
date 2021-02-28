@@ -20,9 +20,9 @@ class Win(db.Model):
 @app.route('/', methods=["GET"])
 @app.route('/index', methods=["GET"])
 def index():
-    names = requests.get("http://localhost:5001/names")
-    fruits = requests.get("http://localhost:5002/fruits")
-    response = requests.post("http://localhost:5003/prize", data=names.text)
+    names = requests.get("http://app-names:5001/names")
+    fruits = requests.get("http://app-fruits:5002/fruits")
+    response = requests.post("http://app-prizes:5003/prize", data=names.text)
     correct_name = names.text
     correct_fruit = fruits.text
     prize = response.text

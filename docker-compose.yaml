@@ -1,35 +1,18 @@
 version: '3.7'
 services:
-  service-1:
+  app-frontend:
     image: app-frontend:latest
     ports:
-    - target: 5000
-      protocol: tcp
-    depends_on:
-    - service-4
-  service-2:
+    - 5000:5000
+  app-names:
     image: app-names:latest
     ports:
-    - target: 5001
-      protocol: tcp
-  service-3:
+    - 5001:5001
+  app-fruits:
     image: app-fruits:latest
     ports:
-    - target: 5002
-      protocol: tcp
-  service-4:
+    - 5002:5002
+  app-prizes:
     image: app-prizes:latest
     ports:
-    - target: 5003
-      protocol: tcp
-  nginx: 
-    image: nginx:latest
-    ports:
-      - target: 80
-        published: 80
-        protocol: tcp
-    volumes:
-      - type: bind
-        source: ./nginx/nginx.conf
-        target: /etc/nginx/nginx.conf
-
+    - 5003:5003
