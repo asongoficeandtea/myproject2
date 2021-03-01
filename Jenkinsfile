@@ -3,7 +3,8 @@ pipeline {
     stages{
         stage('Test'){
             steps{
-                sh './scripts/test.sh'
+                sh ''' sudo chmod 666 ./scripts/test.sh
+                ./scripts/test.sh '''
             }
         }                 
     }
