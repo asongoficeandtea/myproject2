@@ -5,13 +5,13 @@
   roles:
   - docker
   
-- name: initialize docker swarm
+- name: initialize docker-swarm
   become: true
   hosts: swarm-manager
   roles:
   - swarm
 
-- name: join worker to swarm
+- name: join worker to docker-swarm
   become: true
   hosts: swarm-worker
   roles:
