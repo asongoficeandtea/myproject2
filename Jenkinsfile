@@ -6,15 +6,15 @@ pipeline{
                     sh '''
                     cd service2
                     pip3 install -r requirements.txt
-                    python3 -m pytest --cov=application
+                    python3 -m pytest --cov=app
                     cd ..
                     cd service3
                     pip3 install -r requirements.txt
-                    python3 -m pytest --cov=application
+                    python3 -m pytest --cov=app
                     cd ..
                     cd service4
                     pip3 install -r requirements.txt
-                    python3 -m pytest --cov=application
+                    python3 -m pytest --cov=app
                     cd ..
                     '''
                 }
@@ -40,7 +40,7 @@ pipeline{
         stage('Deploy'){
             steps{
                 sh '''
-                scp -i ~/.ssh/id_rsa docker-compose.yml borakim@project:/home/jenkins/docker-compose.yml
+                scp -i ~/.ssh/id_rsa docker-compose.yml alimatea7@jenkins:/home/jenkins/docker-compose.yml
                 ssh -i ~/.ssh/id_rsa alimatea7@jenkins 
                 docker stack deploy --compose-file /home/jenkins/docker-compose.yml myproject2
                 EOF
