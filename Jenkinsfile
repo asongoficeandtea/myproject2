@@ -16,12 +16,14 @@ pipeline{
                     pip3 install -r requirements.txt
                     python3 -m pytest --cov=app
                     cd ..
+		    ls -la
                     '''
                 }
             }
         stage('Build'){
             steps{
-                sh ''' 
+                sh '''
+		ls -la
                 sudo chmod 666 /var/run/docker.sock
                 docker-compose down --rmi all
                 docker-compose build
