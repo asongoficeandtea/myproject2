@@ -1,8 +1,9 @@
 ---
-- name: Initialise swarm
-  docker_swarm:
-    state: present
+# tasks file for manager
+    - name: Init a new swarm with default parameters
+      docker_swarm:
+        state: present
 
-- name: Get the manager node join-token
-  docker_swarm_info:
-  register: swarm_info
+    - name: Get the manager node join-token
+      docker_swarm_info:
+      register: swarm_info
