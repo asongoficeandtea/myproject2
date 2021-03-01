@@ -22,9 +22,6 @@ pipeline{
         stage('Build'){
             steps{
                 sh ''' 
-		sudo chmod +x /usr/local/bin/docker-compose
-		sudo usermod -aG docker $(whoami)
-		sudo usermod -aG docker jenkins
                 sudo chmod 666 /var/run/docker.sock
                 docker-compose down --rmi all
                 docker-compose build
@@ -36,8 +33,7 @@ pipeline{
         stage('Ansible'){
             steps{
                 sh '''
-                sudo chmod 666 inventory.yaml playbook.yaml
-		ls -la
+                chmod 666 inventory.yaml playbook.yaml
                 ansible-playbook -i inventory.yaml playbook.yaml
                 cd ..
                 '''
