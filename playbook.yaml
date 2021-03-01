@@ -1,18 +1,24 @@
 ---
-- name: install Docker
+- name: install docker
   become: true
-  hosts: docker-group
+  hosts: my-hosts
   roles:
-  - docker
-  
-- name: initialize docker-swarm
-  become: true
-  hosts: swarm-manager
-  roles:
-  - swarm
+    - docker
 
-- name: join worker to docker-swarm
+- name: install docker
   become: true
-  hosts: swarm-worker
+  hosts: worker
   roles:
-  - join-swarm
+    - docker
+
+- name: initialise docker swarm
+  become: true
+  hosts: manager
+  roles:
+    - manager
+
+- name: add workers to swarm
+  become: true
+  hosts: worker
+  roles:
+    - worker

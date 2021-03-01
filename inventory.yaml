@@ -1,16 +1,16 @@
 all:
   children:
-    docker-group:
-      hosts:
-        35.233.144.42
-        35.247.11.109
-        104.196.233.92
-    swarm-manager:
+    my-hosts:
       hosts: 
-        35.233.144.42
-    swarm-worker:
+        104.196.233.92:
+        35.247.11.109:
+        35.233.144.42:
+    manager:
       hosts:
-        104.196.233.92
+        35.247.11.109:
+    worker:
+      hosts:
+        35.233.144.42:
   vars:
     ansible_python_interpreter: /usr/bin/python3
     ansible_user: alimatea7
