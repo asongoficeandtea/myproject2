@@ -1,24 +1,25 @@
-pipeline{
-        agent any
-        stages{
-            stage('Testing'){
-                steps{
-                    sh '''
-                    cd service2
-                    pip3 install -r requirements.txt
-                    python3 -m pytest --cov=app
-                    cd ..
-                    cd service3
-                    pip3 install -r requirements.txt
-                    python3 -m pytest --cov=app
-                    cd ..
-                    cd service4
-                    pip3 install -r requirements.txt
-                    python3 -m pytest --cov=app
-                    cd ..
-                    '''
-                }
+pipeline {
+    agent any 
+    stages{
+        stage('Test'){
+            steps{
+                sh './scripts/test.sh'
             }
-            
         }
+        stage('Ansible'){
+            steps{
+            
+            }
+        }
+        stage('Build'){
+            steps{
+            
+            }
+        }
+        stage('Deploy'){
+            steps{
+                
+            }
+        }                   
+    }
 }
