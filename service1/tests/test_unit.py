@@ -2,33 +2,29 @@ from unittest.mock import patch
 from flask import url_for
 from flask_testing import TestCase
 import requests_mock
+
 from app import app, db, Win
 
 
 class TestBase(TestCase):
     def create_app(self):
-        app.config.update(SQLALCHEMY_DATABASE_URI='mysql+pymysql://root:root@35.203.177.146/testdb',
-                          SECRET_KEY='IT_IS_A_SECRET_KEY', DEBUG=True)
         return app
 
     def setUp(self):
-        db.drop_all()
         db.create_all()
-
-    # sample data
-        test_win = Win(name="Mariam", fruit="kiwi",
-                       prize="Versace Bright Crystal")
-        db.session.add(test_win)
+        db.session.add(Win(name="Mariam", fruit="kiwi",
+                           prize="Versace Bright Crystal"))
         db.session.commit()
 
     def tearDown(self):
+        db.session.remove()
         db.drop_all()
 
 
 class TestViews(TestBase):
     def test_view(self):
         response = self.client.get(url_for('index'))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 500)
 
 
 class TestResponse(TestBase):
