@@ -1,8 +1,7 @@
 all:
   children:
     my-hosts:
-      hosts: 
-        104.196.233.92:
+      hosts:
         35.247.11.109:
         35.233.144.42:
     manager:
@@ -14,4 +13,4 @@ all:
   vars:
     ansible_python_interpreter: /usr/bin/python3
     ansible_user: alimatea7
-    ansible_ssh_private_key_file: '~/.ssh/id_rsa'
+    ansible_ssh_private_key_file: '~/.ssh/ansible_id_rsa'
