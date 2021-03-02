@@ -35,12 +35,7 @@ pipeline{
         }        
         stage('Ansible'){
             steps{
-                sh '''
-		whoami
-                chmod 666 inventory.yaml playbook.yaml
-                ansible-playbook -i inventory.yaml playbook.yaml
-                cd ..
-                '''
+               	ansiblePlaybook credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible2', inventory: 'inventory.yml', playbook: 'playbook.yml'
             }
         }
         stage('Deploy'){
