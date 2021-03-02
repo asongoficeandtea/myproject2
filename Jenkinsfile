@@ -4,9 +4,6 @@ pipeline{
             stage('Testing'){
                 steps{
                     sh '''
-		    exit
-		    whoami
-		    cd myproject2
                     cd service2
                     pip3 install -r requirements.txt
                     python3 -m pytest --cov=app
@@ -22,31 +19,35 @@ pipeline{
                     '''
                 }
             }
-        stage('Build'){
-            steps{
-                sh ''' 
-                sudo chmod 666 /var/run/docker.sock
-                docker-compose down --rmi all
-                docker-compose build
-                sudo docker login -u nubimari -p mariam123
-                sudo docker-compose push
-                '''
+            stage('Build'){
+                steps{
+                    sh ''' 
+                    sudo chmod 666 /var/run/docker.sock
+                    docker-compose down --rmi all
+                    docker-compose build
+                    sudo docker login -u nubimari -p mariam123
+                    sudo docker-compose push
+                    '''
+                }
+            }        
+            stage('Ansible'){
+                steps{
+                    sh '''
+                    whoami
+                    pwd
+                    ansible-playbook -i inventory.yaml playbook.yaml
+                    '''
+                }
             }
-        }        
-        stage('Ansible'){
-            steps{
-               	ansiblePlaybook credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible2', inventory: 'inventory.yml', playbook: 'playbook.yml'
+            stage('Deploy'){
+                steps{
+                    sh ''' ssh -i ~/.ssh/jenkins_agent_key manager-vm << EOF
+                    sudo rm -rf myproject2
+                    git clone https://github.com/asongoficeandtea/myproject2.git
+                    cd myproject2
+                    docker stack deploy --compose-file docker-compose.yaml myproject2
+                    EOF  '''
+                }
             }
         }
-        stage('Deploy'){
-            steps{
-                sh '''
-                scp -i ~/.ssh/id_rsa docker-compose.yaml alimatea7@jenkins:/home/jenkins/docker-compose.yml
-                ssh -i ~/.ssh/id_rsa alimatea7@jenkins
-                docker stack deploy --compose-file /home/jenkins/docker-compose.yaml myproject2
-                EOF
-                '''
-            }
-        }          
     }
-}
