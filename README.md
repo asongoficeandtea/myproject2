@@ -39,5 +39,5 @@
 
 * Much improvement in using python and producing code
 * Understanding of using Ansible, Docker including Docker Compose and Swarm is demonstrated in this project
-* Will improve on managing Jenkins pipeline
+* Will improve on managing Jenkins pipeline including Jenkins agents
 
