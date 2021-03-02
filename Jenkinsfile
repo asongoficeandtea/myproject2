@@ -4,6 +4,9 @@ pipeline{
             stage('Testing'){
                 steps{
                     sh '''
+		    exit
+		    whoami
+		    cd myproject2
                     cd service2
                     pip3 install -r requirements.txt
                     python3 -m pytest --cov=app
