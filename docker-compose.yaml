@@ -32,16 +32,4 @@ services:
     ports:
     - "5003:5003"
 
-  nginx-server:
-    image: nginx:alpine
-    container_name: nginx
-    deploy:
-      replicas: 2
-    ports:
-    - target: 80
-      published: 80
-      protocol: tcp
-    volumes:
-    - type: bind
-      source: ./nginx/nginx.conf
-      target: /etc/nginx/nginx.conf
+
