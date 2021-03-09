@@ -10,11 +10,14 @@
   
 ### Tools utilised
 
-* Github
-* Jenkins
-* Ansible
-* Docker (Swarm and Compose)
-
+* Trello Board for project tracking 
+* Version Control: Git
+* Ci Server: Jenkins
+* Container Orchestration: Ansible
+* Containerisation: Docker (Swarm and Compose)
+* Cloud Server: Google Cloud Platform VMs
+* Reverse Proxy: Nginx
+* Programming Language: Python
 
 ### Design Process
 
