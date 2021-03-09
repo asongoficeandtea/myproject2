@@ -1,7 +1,6 @@
 version: '3.8'
 services: 
   app-frontend:
-    container_name: frontend
     image: nubimari/app-frontend
     build: ./service1
     deploy:
@@ -10,7 +9,6 @@ services:
     - "5000:5000"
   
   app-names:
-    container_name: names
     image: nubimari/app-names
     build: ./service2
     deploy:
@@ -19,7 +17,6 @@ services:
     - "5001:5001"
   
   app-fruits:
-    container_name: fruits
     image: nubimari/app-fruits
     build: ./service3
     deploy:
@@ -28,7 +25,6 @@ services:
     - "5002:5002"
   
   app-prizes:
-    container_name: prizes
     image: nubimari/app-prizes
     build: ./service4
     deploy:
