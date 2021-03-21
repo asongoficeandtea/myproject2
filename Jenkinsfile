@@ -1,50 +1,39 @@
 pipeline{
         agent any
         stages{
-            stage('Testing'){
+            stage('Test'){
                 steps{
                     sh '''
-                    cd service2
-                    pip3 install -r requirements.txt
-                    python3 -m pytest --cov=app
-                    cd ..
-                    cd service3
-                    pip3 install -r requirements.txt
-                    python3 -m pytest --cov=app
-                    cd ..
-                    cd service4
-                    pip3 install -r requirements.txt
-                    python3 -m pytest --cov=app
-                    cd ..
+                    cd scripts
+                    sudo chmod +x ./test.sh
+                    ./test.sh
                     '''
                 }
             }
         stage('Ansible'){
             steps{
-                sh ''' 
-                pwd
-                ansible_ssh_extra_args='-o StrictHostKeyChecking=no'
-                ansible-playbook -i inventory.yaml playbook.yaml
+                sh '''
+                cd scripts
+                sudo chmod +x ./config.sh
+                ./config.sh
                 '''
             }
         }
         stage('Build'){
             steps{
                 sh ''' 
-                sudo chmod 666 /var/run/docker.sock
-                docker-compose down --rmi all
-                docker-compose build
-                sudo docker login -u nubimari -p password123
-                sudo docker-compose push
+                cd scripts
+                sudo chmod +x ./build.sh
+                ./build.sh
                 '''
             }
         }
         stage('Deploy'){
             steps{
                 sh '''
-                scp -i ~/.ssh/id_rsa docker-compose.yaml jenkins@35.227.157.65:/home/jenkins/docker-compose.yaml
-                ssh -i ~/.ssh/id_rsa jenkins@35.227.157.65 << EOF
-                docker stack deploy --compose-file /home/jenkins/docker-compose.yaml myproject2 << EOF
+                cd scripts
+                sudo chmod +x ./deploy.sh
+                ./deploy.sh
                 '''
             }
         }          
